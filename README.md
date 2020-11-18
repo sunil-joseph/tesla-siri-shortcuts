@@ -8,8 +8,8 @@ Creating Custom Siri Shortcuts for you Tesla - [Watch](https://youtu.be/I8koTRZG
 Using Siri to Initiate a Software Update on my Tesla - [Watch](https://youtu.be/PLJmQWN9qY8)  
 Shortcuts | Saving Tesla data to your iOS device - Part 1 - [Watch](https://youtu.be/gLXSNbGiz0w)  
 Shortcuts | Saving Tesla data to your iOS device - Part 2 - [Watch](https://youtu.be/3NFJYktEmvQ)  
-Shortcuts | Saving Tesla data to your iOS device - Part 3 - [Watch](https://youtu.be/N3f0XRcMDlc)
-Automate Homelink with Siri & NFC tags - [Watch](https://youtu.be/M7ipJ98m9Uc)
+Shortcuts | Saving Tesla data to your iOS device - Part 3 - [Watch](https://youtu.be/N3f0XRcMDlc)  
+Automate Homelink with Siri & NFC tags - [Watch](https://youtu.be/M7ipJ98m9Uc)  
 
 ## Core Shortcuts
 | Name & Source | iCloud | Description | Requires | Speakable |
