@@ -56,7 +56,7 @@ let html = await req.loadString();
 let resp = req.response;
 
 // We capture the cookies so that Tesla knows all the calls are part of the same requests
-const cookies = resp.headers['Set-Cookie'];
+const cookie = resp.headers['Set-Cookie'];
 
 // On the Tesla Login page, there are a few parameters that we need
 // We need to simulate us logging onto the webpage, so need all the form data that exist on this page
@@ -80,7 +80,7 @@ console.log('Download Captcha');
 req = new Request('https://auth.tesla.com/captcha');
 req.method = 'GET';
 req.headers = {
-  'Cookie': cookies
+  'Cookie': cookie
 };
 
 // Request doesn't recognize SVG as image, but as a string
@@ -135,7 +135,7 @@ req = new Request(`${baseUrl}?${params}`);
 req.method = 'POST';
 req.headers = {
   'Content-Type': 'application/json',
-  'Cookie': cookies
+  'Cookie': cookie
 };
 req.body = JSON.stringify(body);
 
@@ -157,7 +157,7 @@ if (resp.statusCode === 200 && isMFA) {
   // We first need to get the factor id that was associated with our transaction id
   req = new Request(`${baseUrl}/mfa/factors?transaction_id=${transactionId}`);
   req.method = 'GET'
-  req.headers = {'Cookie': cookies};
+  req.headers = {'Cookie': cookie};
   resp = await req.loadJSON();
 
   const factorId = resp.data[0].id;
@@ -170,7 +170,7 @@ if (resp.statusCode === 200 && isMFA) {
   req = new Request(`${baseUrl}/mfa/verify`);
   req.headers = {
     'Content-Type': 'application/json',
-    'Cookie': cookies
+    'Cookie': cookie
   };
   req.body = JSON.stringify(body);
   req.method = 'POST';
@@ -192,7 +192,7 @@ if (resp.statusCode === 200 && isMFA) {
   req = new Request(`${baseUrl}?${params}`)  
   req.headers = {
     'Content-Type': 'application/json',
-    'Cookie': cookies
+    'Cookie': cookie
   };
   req.body = JSON.stringify(data);
   req.method = 'POST';
@@ -221,7 +221,7 @@ if (resp.statusCode === 302) {
   req.method = 'POST'
   req.headers = {
     'Content-Type': 'application/json',
-    'Cookie': cookies
+    'Cookie': cookie
   };
 
   body = {
@@ -236,8 +236,8 @@ if (resp.statusCode === 302) {
   const tokens = await req.loadJSON();
   
   // If successfully, we'll have the access tokens from Tesla
-  const tokenManager = importModule('Tesla Access Tokens Manager');
-  tokenManager.saveTokens(tokens);
+  Keychain.set('access_token', tokens.access_token);
+  Keychain.set('refresh_token', tokens.refresh_token);
   
-  console.log('Successfully saved the tokens to the Library directory in Files!');
+  console.log('Successfully saved the tokens to the Keychain!');
 }
